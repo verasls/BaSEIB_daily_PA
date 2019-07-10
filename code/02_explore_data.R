@@ -184,7 +184,7 @@ whole_day <- whole_day %>%
     log10_avg_MVPA  = log10(avg_MVPA),
     log10_avg_steps = log10(avg_steps)
   ) %>% 
-  select(
+  dplyr::select(
     ID, eval, group, body_mass, age, sex,
     SED, LPA, MPA, VPA, steps,
     avg_SED, avg_LPA, avg_MPA, avg_VPA, avg_MVPA, avg_steps,

@@ -5,7 +5,7 @@ library(tidyverse)
 # Read and tidy data ------------------------------------------------------
 
 whole_day <- read_csv("data/troiano2008_whole_day.csv") %>% 
-  select(
+  dplyr::select(
     eval = Eval,
     ID,
     body_mass = `Weight (kg)`,
@@ -29,7 +29,7 @@ whole_day <- read_csv("data/troiano2008_whole_day.csv") %>%
     avg_MVPA = MVPA / n_valid_days,
     avg_steps = steps / n_valid_days
   ) %>% 
-  select(
+  dplyr::select(
     ID, eval, body_mass, age, sex,
     SED, LPA, MPA, VPA, steps,
     avg_SED, avg_LPA, avg_MPA, avg_VPA, avg_MVPA, avg_steps,
@@ -71,7 +71,7 @@ for (i in 1:nrow(whole_day)) {
     whole_day$group[i] <- "exercise"
   }
 }
-whole_day <- select(whole_day, ID, eval, group, everything())
+whole_day <- dplyr::select(whole_day, ID, eval, group, everything())
 
 # Change type of some variables
 whole_day$eval  <- as_factor(whole_day$eval)
