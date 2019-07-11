@@ -25,7 +25,7 @@ t.test(log10_avg_VPA ~ eval, data = whole_day_1st_2nd, paired = TRUE)
 t.test(log10_avg_MVPA ~ eval, data = whole_day_1st_2nd, paired = TRUE)
 t.test(log10_avg_steps ~ eval, data = whole_day_1st_2nd, paired = TRUE)
 
-# Compare control and exercise at 2nd eval
+# Compare control and exercise at 2nd eval --------------------------------
 
 t.test(avg_SED ~ group, data = whole_day_2nd)
 t.test(avg_LPA ~ group, data = whole_day_2nd)
@@ -34,7 +34,7 @@ t.test(log10_avg_VPA ~ group, data = whole_day_2nd)
 t.test(log10_avg_MVPA ~ group, data = whole_day_2nd)
 t.test(log10_avg_steps ~ group, data = whole_day_2nd)
 
-# Compare control and exercise at 2nd and 3rd evals
+# Compare control and exercise at 2nd and 3rd evals -----------------------
 
 ANOVA_SED <- ezANOVA(
   data = whole_day_2nd_3rd,
