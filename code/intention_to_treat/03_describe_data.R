@@ -1,7 +1,7 @@
 # Load packages and required files ----------------------------------------
 
 library(tidyverse)
-source("code/01_tidy_data.R")
+source("code/intention_to_treat/01_tidy_data.R")
 
 # Physical activity descriptives ------------------------------------------
 

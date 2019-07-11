@@ -3,7 +3,7 @@
 library(tidyverse)
 library(ez)
 library(multcomp)
-source("code/02_explore_data.R")
+source("code/intention_to_treat/02_explore_data.R")
 
 # Prepare data frames -----------------------------------------------------
 
