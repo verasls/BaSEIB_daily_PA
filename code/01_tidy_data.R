@@ -101,17 +101,6 @@ ant_1st <- read_csv("data/BaSEIB_anthropometric_data_1st_eval.csv") %>%
   ) %>% 
   dplyr::select(ID, eval, group, age, height, body_mass, BMI, waist_circ, hip_circ)
 
-# correct wrong ages
-ant_1st[4, 4]  <- ant_2nd[4, 4]
-ant_1st[16, 4] <- ant_2nd[16, 4]
-
-
-for (i in 1:nrow(ant_1st)) {
-  if (ant_1st$age[i] < 18 | ant_1st$age[i] > 65) {
-    ant_1st$age[i] <- NA
-  }
-}
-
 # 2nd eval
 ant_2nd <- read_csv("data/BaSEIB_anthropometric_data_2nd_eval.csv") %>% 
   dplyr::select(ID, height, body_mass, BMI, waist_circ, hip_circ) %>% 
@@ -122,6 +111,10 @@ ant_2nd <- read_csv("data/BaSEIB_anthropometric_data_2nd_eval.csv") %>%
     by = "ID"
   ) %>% 
   dplyr::select(ID, eval, group, age, height, body_mass, BMI, waist_circ, hip_circ)
+
+# correct wrong ages
+ant_1st[4, 4]  <- ant_2nd[4, 4]
+ant_1st[16, 4] <- ant_2nd[16, 4]
 
 # 3rd eval
 ant_3rd <- read_csv("data/BaSEIB_anthropometric_data_3rd_eval.csv") %>% 
