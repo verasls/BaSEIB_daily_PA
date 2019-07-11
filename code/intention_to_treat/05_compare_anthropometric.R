@@ -35,6 +35,28 @@ t.test(hip_circ ~ group, data = ant_2nd)
 
 # Compare control and exercise at 2nd and 3rd evals -----------------------
 
+# Age
+ANOVA_age <- ezANOVA(
+  data = ant_2nd_3rd,
+  dv = .(age),
+  wid = .(ID),
+  within = .(eval),
+  between = .(group),
+  detailed = TRUE,
+  type = 3
+)
+
+# Height
+ANOVA_height <- ezANOVA(
+  data = ant_2nd_3rd,
+  dv = .(height),
+  wid = .(ID),
+  within = .(eval),
+  between = .(group),
+  detailed = TRUE,
+  type = 3
+)
+
 # Body mass
 ANOVA_body_mass <- ezANOVA(
   data = ant_2nd_3rd,
@@ -103,7 +125,7 @@ exercise_posthoc_waist_circ <- pairwise.t.test(
 
 # Hip circunference
 ANOVA_hip_circ <- ezANOVA(
-  data = ant_2nd_3rd,
+  data = ant_2nd_3rd_no_NA,
   dv = .(hip_circ),
   wid = .(ID),
   within = .(eval),
@@ -113,11 +135,11 @@ ANOVA_hip_circ <- ezANOVA(
 )
 
 control_posthoc_hip_circ <- pairwise.t.test(
-  ant_2nd_3rd_control$hip_circ, ant_2nd_3rd_control$eval,
+  ant_2nd_3rd_no_NA_control$hip_circ, ant_2nd_3rd_no_NA_control$eval,
   paired = TRUE, p.adjust.method = "bonferroni"
 )
 
 exercise_posthoc_hip_circ <- pairwise.t.test(
-  ant_2nd_3rd_exercise$hip_circ, ant_2nd_3rd_exercise$eval,
+  ant_2nd_3rd_no_NA_exercise$hip_circ, ant_2nd_3rd_no_NA_exercise$eval,
   paired = TRUE, p.adjust.method = "bonferroni"
 )
