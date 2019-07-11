@@ -211,8 +211,8 @@ ant_desc_3rd_ctr <- ant_3rd %>%
     BMI_sd = round(sd(BMI), 1),
     waist_circ_mean = round(mean(waist_circ, na.rm = TRUE), 1),
     waist_circ_sd = round(sd(waist_circ, na.rm = TRUE), 1),
-    hip_circ_mean = round(mean(hip_circ), 1),
-    hip_circ_sd = round(sd(hip_circ), 1)
+    hip_circ_mean = round(mean(hip_circ, na.rm = TRUE), 1),
+    hip_circ_sd = round(sd(hip_circ, na.rm = TRUE), 1)
   )
 
 # ** 3rd eval, exercise group ---------------------------------------------
