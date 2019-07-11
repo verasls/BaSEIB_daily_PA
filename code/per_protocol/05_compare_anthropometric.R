@@ -25,6 +25,28 @@ t.test(hip_circ ~ group, data = ant_2nd_50_attend)
 
 # Compare control and exercise at 2nd and 3rd evals -----------------------
 
+# Age
+ANOVA_age <- ezANOVA(
+  data = ant_2nd_3rd_50_attend,
+  dv = .(age),
+  wid = .(ID),
+  within = .(eval),
+  between = .(group),
+  detailed = TRUE,
+  type = 3
+)
+
+# Height
+ANOVA_height <- ezANOVA(
+  data = ant_2nd_3rd_50_attend,
+  dv = .(height),
+  wid = .(ID),
+  within = .(eval),
+  between = .(group),
+  detailed = TRUE,
+  type = 3
+)
+
 # Body mass
 ANOVA_body_mass <- ezANOVA(
   data = ant_2nd_3rd_50_attend,
