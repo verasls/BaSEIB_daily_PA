@@ -28,6 +28,33 @@ whole_day_50_attend <- rbind(whole_day_50_attend_exercise, whole_day_50_attend_c
 # Read and tidy anthropometric data ---------------------------------------
 
 # Filter IDs with selected attendance rate
+ant_1st_50_attend_exercise <- ant_1st %>% 
+  filter(ID %in% selected_IDs)
+
+ant_1st_50_attend_control <- ant_1st %>% 
+  filter(group == "control")
+
+ant_1st_50_attend <- rbind(ant_1st_50_attend_exercise, ant_1st_50_attend_control) %>% 
+  arrange(ID)
+
+ant_2nd_50_attend_exercise <- ant_2nd %>% 
+  filter(ID %in% selected_IDs)
+
+ant_2nd_50_attend_control <- ant_2nd %>% 
+  filter(group == "control")
+
+ant_2nd_50_attend <- rbind(ant_2nd_50_attend_exercise, ant_2nd_50_attend_control) %>% 
+  arrange(ID)
+
+ant_3rd_50_attend_exercise <- ant_3rd %>% 
+  filter(ID %in% selected_IDs)
+
+ant_3rd_50_attend_control <- ant_3rd %>% 
+  filter(group == "control")
+
+ant_3rd_50_attend <- rbind(ant_3rd_50_attend_exercise, ant_3rd_50_attend_control) %>% 
+  arrange(ID)
+
 ant_50_attend_exercise <- ant %>%
   filter(ID %in% selected_IDs)
 
