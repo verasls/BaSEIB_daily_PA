@@ -79,6 +79,8 @@ exercise_posthoc_BMI <- pairwise.t.test(
 
 # Waist circunference
 ant_2nd_3rd_no_NA <- ant_2nd_3rd %>% filter(ID != 41)
+ant_2nd_3rd_no_NA_control <- ant_2nd_3rd_no_NA %>% filter(group == "control")
+ant_2nd_3rd_no_NA_exercise <- ant_2nd_3rd_no_NA %>% filter(group == "exercise")
 ANOVA_waist_circ <- ezANOVA(
   data = ant_2nd_3rd_no_NA,
   dv = .(waist_circ),
@@ -90,12 +92,12 @@ ANOVA_waist_circ <- ezANOVA(
 )
 
 control_posthoc_waist_circ <- pairwise.t.test(
-  ant_2nd_3rd_no_NA$waist_circ, ant_2nd_3rd_no_NA$eval,
+  ant_2nd_3rd_no_NA_control$waist_circ, ant_2nd_3rd_no_NA_control$eval,
   paired = TRUE, p.adjust.method = "bonferroni"
 )
 
 exercise_posthoc_waist_circ <- pairwise.t.test(
-  ant_2nd_3rd_no_NA$waist_circ, ant_2nd_3rd_no_NA$eval,
+  ant_2nd_3rd_no_NA_exercise$waist_circ, ant_2nd_3rd_no_NA_exercise$eval,
   paired = TRUE, p.adjust.method = "bonferroni"
 )
 
