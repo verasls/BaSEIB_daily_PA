@@ -27,6 +27,7 @@ whole_day_50_attend <- rbind(whole_day_50_attend_exercise, whole_day_50_attend_c
 
 # Read and tidy anthropometric data ---------------------------------------
 
+# Filter IDs with selected attendance rate
 ant_50_attend_exercise <- ant %>%
   filter(ID %in% selected_IDs)
 
