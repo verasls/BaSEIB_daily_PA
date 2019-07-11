@@ -3,7 +3,7 @@
 library(tidyverse)
 source("code/01_tidy_data.R")
 
-# Plots -------------------------------------------------------------------
+# Plots (PA data) ---------------------------------------------------------
 
 # ** 1st eval, both groups ------------------------------------------------
 
@@ -173,7 +173,7 @@ hist_steps_3rd_exe <- ggplot(
 ) +
   geom_histogram(colour = "black", fill = "white", binwidth = 500)
 
-# Normality tests ---------------------------------------------------------
+# Normality tests (PA data) -----------------------------------------------
 
 # * Log transformation ----------------------------------------------------
 
@@ -310,3 +310,59 @@ shapiro.test(
   whole_day$log10_avg_VPA[which(whole_day$eval == "3rd" & whole_day$group == "control")]) # not normal
 shapiro.test(
   whole_day$log10_avg_MVPA[which(whole_day$eval == "3rd" & whole_day$group == "control")]) # normal
+
+# Normality tests (anthropometric data) -----------------------------------
+
+# ** 1st eval, both groups ------------------------------------------------
+
+shapiro.test(ant_1st$age) # normal
+shapiro.test(ant_1st$height) # normal
+shapiro.test(ant_1st$body_mass) # normal
+shapiro.test(ant_1st$BMI) # normal
+shapiro.test(ant_1st$waist_circ) # normal
+shapiro.test(ant_1st$hip_circ) # normal
+
+# ** 2nd eval, both groups ------------------------------------------------
+
+shapiro.test(ant_2nd$age) # normal
+shapiro.test(ant_2nd$height) # normal
+shapiro.test(ant_2nd$body_mass) # normal
+shapiro.test(ant_2nd$BMI) # normal
+shapiro.test(ant_2nd$waist_circ) # normal
+shapiro.test(ant_2nd$hip_circ) # normal
+
+# ** 2nd eval, control group ----------------------------------------------
+
+shapiro.test(ant_2nd$age[which(ant_2nd$group == "control")]) # normal
+shapiro.test(ant_2nd$height[which(ant_2nd$group == "control")]) # normal
+shapiro.test(ant_2nd$body_mass[which(ant_2nd$group == "control")]) # normal
+shapiro.test(ant_2nd$BMI[which(ant_2nd$group == "control")]) # normal
+shapiro.test(ant_2nd$waist_circ[which(ant_2nd$group == "control")]) # normal
+shapiro.test(ant_2nd$hip_circ[which(ant_2nd$group == "control")]) # normal
+
+# ** 2nd eval, exercise group ---------------------------------------------
+
+shapiro.test(ant_2nd$age[which(ant_2nd$group == "exercise")]) # normal
+shapiro.test(ant_2nd$height[which(ant_2nd$group == "exercise")]) # normal
+shapiro.test(ant_2nd$body_mass[which(ant_2nd$group == "exercise")]) # normal
+shapiro.test(ant_2nd$BMI[which(ant_2nd$group == "exercise")]) # normal
+shapiro.test(ant_2nd$waist_circ[which(ant_2nd$group == "exercise")]) # normal
+shapiro.test(ant_2nd$hip_circ[which(ant_2nd$group == "exercise")]) # normal
+
+# ** 3rd eval, control group ----------------------------------------------
+
+shapiro.test(ant_3rd$age[which(ant_3rd$group == "control")]) # normal
+shapiro.test(ant_3rd$height[which(ant_3rd$group == "control")]) # normal
+shapiro.test(ant_3rd$body_mass[which(ant_3rd$group == "control")]) # normal
+shapiro.test(ant_3rd$BMI[which(ant_3rd$group == "control")]) # normal
+shapiro.test(ant_3rd$waist_circ[which(ant_3rd$group == "control")]) # normal
+shapiro.test(ant_3rd$hip_circ[which(ant_3rd$group == "control")]) # normal
+
+# ** 3rd eval, exercise group ---------------------------------------------
+
+shapiro.test(ant_3rd$age[which(ant_3rd$group == "exercise")]) # normal
+shapiro.test(ant_3rd$height[which(ant_3rd$group == "exercise")]) # normal
+shapiro.test(ant_3rd$body_mass[which(ant_3rd$group == "exercise")]) # normal
+shapiro.test(ant_3rd$BMI[which(ant_3rd$group == "exercise")]) # normal
+shapiro.test(ant_3rd$waist_circ[which(ant_3rd$group == "exercise")]) # normal
+shapiro.test(ant_3rd$hip_circ[which(ant_3rd$group == "exercise")]) # normal
