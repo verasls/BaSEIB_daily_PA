@@ -23,8 +23,6 @@ whole_day_2nd_3rd_exercise_50_attend <- whole_day_2nd_3rd_50_attend %>%
 
 t.test(avg_SED ~ group, data = whole_day_2nd_50_attend)
 t.test(avg_LPA ~ group, data = whole_day_2nd_50_attend)
-t.test(log10_avg_MPA ~ group, data = whole_day_2nd_50_attend)
-t.test(log10_avg_VPA ~ group, data = whole_day_2nd_50_attend)
 t.test(log10_avg_MVPA ~ group, data = whole_day_2nd_50_attend)
 t.test(avg_steps ~ group, data = whole_day_2nd_50_attend)
 
@@ -69,48 +67,6 @@ control_posthoc_LPA <- pairwise.t.test(
 
 exercise_posthoc_LPA <- pairwise.t.test(
   whole_day_2nd_3rd_exercise_50_attend$avg_LPA, whole_day_2nd_3rd_exercise_50_attend$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-# MPA
-ANOVA_MPA <- ezANOVA(
-  data = whole_day_2nd_3rd_50_attend,
-  dv = .(log10_avg_MPA),
-  wid = .(ID),
-  within = .(eval),
-  between = .(group),
-  detailed = TRUE,
-  type = 3
-)
-
-control_posthoc_MPA <- pairwise.t.test(
-  whole_day_2nd_3rd_control_50_attend$log10_avg_MPA, whole_day_2nd_3rd_control_50_attend$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-exercise_posthoc_MPA <- pairwise.t.test(
-  whole_day_2nd_3rd_exercise_50_attend$log10_avg_MPA, whole_day_2nd_3rd_exercise_50_attend$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-# VPA
-ANOVA_VPA <- ezANOVA(
-  data = whole_day_2nd_3rd_50_attend,
-  dv = .(log10_avg_VPA),
-  wid = .(ID),
-  within = .(eval),
-  between = .(group),
-  detailed = TRUE,
-  type = 3
-)
-
-control_posthoc_VPA <- pairwise.t.test(
-  whole_day_2nd_3rd_control_50_attend$log10_avg_VPA, whole_day_2nd_3rd_control_50_attend$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-exercise_posthoc_VPA <- pairwise.t.test(
-  whole_day_2nd_3rd_exercise_50_attend$log10_avg_VPA, whole_day_2nd_3rd_exercise_50_attend$eval,
   paired = TRUE, p.adjust.method = "bonferroni"
 )
 

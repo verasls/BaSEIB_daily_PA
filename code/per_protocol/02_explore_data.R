@@ -9,17 +9,8 @@ source("code/per_protocol/01_tidy_data.R")
 
 whole_day_50_attend <- whole_day_50_attend %>% 
   mutate(
-    log10_avg_MPA   = log10(avg_MPA),
-    log10_avg_VPA   = log10(avg_VPA + 1),
     log10_avg_MVPA  = log10(avg_MVPA),
     log10_avg_steps = log10(avg_steps)
-  ) %>% 
-  dplyr::select(
-    ID, eval, group, body_mass, age, sex,
-    SED, LPA, MPA, VPA, steps,
-    avg_SED, avg_LPA, avg_MPA, avg_VPA, avg_MVPA, avg_steps,
-    log10_avg_MPA, log10_avg_VPA, log10_avg_MVPA,
-    n_valid_days, n_days
   )
 
 # ** 2nd eval, control group ----------------------------------------------
@@ -29,19 +20,11 @@ shapiro.test(
 shapiro.test(
   whole_day_50_attend$avg_LPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "control")]) # normal
 shapiro.test(
-  whole_day_50_attend$avg_MPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "control")]) # not normal
-shapiro.test(
-  whole_day_50_attend$avg_VPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "control")]) # not normal
-shapiro.test(
   whole_day_50_attend$avg_MVPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "control")]) # not normal
 shapiro.test(
   whole_day_50_attend$avg_steps[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "control")]) # normal
 
 # Normality test with log10 transformed variable where data is not normal
-shapiro.test(
-  whole_day_50_attend$log10_avg_MPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "control")]) # normal
-shapiro.test(
-  whole_day_50_attend$log10_avg_VPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "control")]) # not normal
 shapiro.test(
   whole_day_50_attend$log10_avg_MVPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "control")]) # normal
 
@@ -52,17 +35,9 @@ shapiro.test(
 shapiro.test(
   whole_day_50_attend$avg_LPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "exercise")]) # normal
 shapiro.test(
-  whole_day_50_attend$avg_MPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "exercise")]) # normal
-shapiro.test(
-  whole_day_50_attend$avg_VPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "exercise")]) # not normal
-shapiro.test(
   whole_day_50_attend$avg_MVPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "exercise")]) # normal
 shapiro.test(
   whole_day_50_attend$avg_steps[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "exercise")]) # normal
-
-# Normality test with log10 transformed variable where data is not normal
-shapiro.test(
-  whole_day_50_attend$log10_avg_VPA[which(whole_day_50_attend$eval == "2nd" & whole_day_50_attend$group == "exercise")]) # not normal
 
 # ** 3rd eval, control group ----------------------------------------------
 
@@ -71,17 +46,9 @@ shapiro.test(
 shapiro.test(
   whole_day_50_attend$avg_LPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "control")]) # normal
 shapiro.test(
-  whole_day_50_attend$avg_MPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "control")]) # normal
-shapiro.test(
-  whole_day_50_attend$avg_VPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "control")]) # not normal
-shapiro.test(
   whole_day_50_attend$avg_MVPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "control")]) # normal
 shapiro.test(
   whole_day_50_attend$avg_steps[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "control")]) # normal
-
-# Normality test with log10 transformed variable where data is not normal
-shapiro.test(
-  whole_day_50_attend$log10_avg_VPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "control")]) # not normal
 
 # ** 3rd eval, exercise group ---------------------------------------------
 
@@ -90,18 +57,9 @@ shapiro.test(
 shapiro.test(
   whole_day_50_attend$avg_LPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "exercise")]) # normal
 shapiro.test(
-  whole_day_50_attend$avg_MPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "exercise")]) # normal
-shapiro.test(
-  whole_day_50_attend$avg_VPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "exercise")]) # not normal
-shapiro.test(
   whole_day_50_attend$avg_MVPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "exercise")]) # normal
 shapiro.test(
   whole_day_50_attend$avg_steps[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "exercise")]) # normal
-
-# Normality test with log10 transformed variable where data is not normal
-shapiro.test(
-  whole_day_50_attend$log10_avg_VPA[which(whole_day_50_attend$eval == "3rd" & whole_day_50_attend$group == "control")]) # not normal
-
 
 # Normality tests (anthropometric data) -----------------------------------
 
