@@ -26,8 +26,6 @@ whole_day_2nd_3rd_exercise <- whole_day_2nd_3rd %>%
 
 t.test(avg_SED ~ eval, data = whole_day_1st_2nd, paired = TRUE)
 t.test(avg_LPA ~ eval, data = whole_day_1st_2nd, paired = TRUE)
-t.test(log10_avg_MPA ~ eval, data = whole_day_1st_2nd, paired = TRUE)
-t.test(log10_avg_VPA ~ eval, data = whole_day_1st_2nd, paired = TRUE)
 t.test(log10_avg_MVPA ~ eval, data = whole_day_1st_2nd, paired = TRUE)
 t.test(log10_avg_steps ~ eval, data = whole_day_1st_2nd, paired = TRUE)
 
@@ -35,8 +33,6 @@ t.test(log10_avg_steps ~ eval, data = whole_day_1st_2nd, paired = TRUE)
 
 t.test(avg_SED ~ group, data = whole_day_2nd)
 t.test(avg_LPA ~ group, data = whole_day_2nd)
-t.test(log10_avg_MPA ~ group, data = whole_day_2nd)
-t.test(log10_avg_VPA ~ group, data = whole_day_2nd)
 t.test(log10_avg_MVPA ~ group, data = whole_day_2nd)
 t.test(log10_avg_steps ~ group, data = whole_day_2nd)
 
@@ -81,48 +77,6 @@ control_posthoc_LPA <- pairwise.t.test(
 
 exercise_posthoc_LPA <- pairwise.t.test(
   whole_day_2nd_3rd_exercise$avg_LPA, whole_day_2nd_3rd_exercise$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-# MPA
-ANOVA_MPA <- ezANOVA(
-  data = whole_day_2nd_3rd,
-  dv = .(log10_avg_MPA),
-  wid = .(ID),
-  within = .(eval),
-  between = .(group),
-  detailed = TRUE,
-  type = 3
-)
-
-control_posthoc_MPA <- pairwise.t.test(
-  whole_day_2nd_3rd_control$log10_avg_MPA, whole_day_2nd_3rd_control$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-exercise_posthoc_MPA <- pairwise.t.test(
-  whole_day_2nd_3rd_exercise$log10_avg_MPA, whole_day_2nd_3rd_exercise$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-# VPA
-ANOVA_VPA <- ezANOVA(
-  data = whole_day_2nd_3rd,
-  dv = .(log10_avg_VPA),
-  wid = .(ID),
-  within = .(eval),
-  between = .(group),
-  detailed = TRUE,
-  type = 3
-)
-
-control_posthoc_VPA <- pairwise.t.test(
-  whole_day_2nd_3rd_control$log10_avg_VPA, whole_day_2nd_3rd_control$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-exercise_posthoc_VPA <- pairwise.t.test(
-  whole_day_2nd_3rd_exercise$log10_avg_VPA, whole_day_2nd_3rd_exercise$eval,
   paired = TRUE, p.adjust.method = "bonferroni"
 )
 

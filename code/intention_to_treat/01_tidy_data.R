@@ -31,7 +31,6 @@ whole_day <- read_csv("data/troiano2008_whole_day.csv") %>%
   ) %>% 
   dplyr::select(
     ID, eval, body_mass, age, sex,
-    SED, LPA, MPA, VPA, steps,
     avg_SED, avg_LPA, avg_MPA, avg_VPA, avg_MVPA, avg_steps,
     n_valid_days, n_days
     )
@@ -86,7 +85,8 @@ eval_3 <- whole_day$ID[which(whole_day$eval == "3rd")]
 all_eval <- intersect(intersect(eval_1, eval_2), eval_3)
 
 whole_day <- whole_day %>% 
-  filter(ID %in% all_eval)
+  filter(ID %in% all_eval) %>% 
+  dplyr::select(-c(avg_MPA, avg_VPA, n_valid_days, n_days))
 
 # Read and tidy anthropometric data ---------------------------------------
 
