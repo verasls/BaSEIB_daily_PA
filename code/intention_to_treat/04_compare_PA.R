@@ -1,8 +1,8 @@
 # Load packages and required files ----------------------------------------
 
 library(tidyverse)
-library(ez)
-library(multcomp)
+library(car)
+library(effects)
 source("code/intention_to_treat/02_explore_data.R")
 
 # Prepare data frames -----------------------------------------------------
@@ -16,11 +16,43 @@ whole_day_2nd <- whole_day %>%
 whole_day_2nd_3rd <- whole_day %>% 
   filter(eval %in% c("2nd", "3rd"))
 
-whole_day_2nd_3rd_control <- whole_day_2nd_3rd %>% 
-  filter(group == "control")
+# Build ANCOVA data frames ------------------------------------------------
 
-whole_day_2nd_3rd_exercise <- whole_day_2nd_3rd %>% 
-  filter(group == "exercise")
+ANCOVA_SED_df <- whole_day_2nd_3rd %>% 
+  dplyr::select(ID, eval, group, avg_SED) %>% 
+  spread(key = eval, value = avg_SED) %>% 
+  dplyr::select(
+    ID, group,
+    SED_2nd = '2nd',
+    SED_3rd = '3rd'
+  )
+
+ANCOVA_LPA_df <- whole_day_2nd_3rd %>% 
+  dplyr::select(ID, eval, group, avg_LPA) %>% 
+  spread(key = eval, value = avg_LPA) %>% 
+  dplyr::select(
+    ID, group,
+    LPA_2nd = '2nd',
+    LPA_3rd = '3rd'
+  )
+
+ANCOVA_MVPA_df <- whole_day_2nd_3rd %>% 
+  dplyr::select(ID, eval, group, log10_avg_MVPA) %>% 
+  spread(key = eval, value = log10_avg_MVPA) %>% 
+  dplyr::select(
+    ID, group,
+    MVPA_2nd = '2nd',
+    MVPA_3rd = '3rd'
+  )
+
+ANCOVA_steps_df <- whole_day_2nd_3rd %>% 
+  dplyr::select(ID, eval, group, log10_avg_steps) %>% 
+  spread(key = eval, value = log10_avg_steps) %>% 
+  dplyr::select(
+    ID, group,
+    steps_2nd = '2nd',
+    steps_3rd = '3rd'
+  )
 
 # Compare 1st and 2nd evals -----------------------------------------------
 
@@ -39,85 +71,33 @@ t.test(log10_avg_steps ~ group, data = whole_day_2nd)
 # Compare control and exercise at 2nd and 3rd evals -----------------------
 
 # SED
-ANOVA_SED <- ezANOVA(
-  data = whole_day_2nd_3rd,
-  dv = .(avg_SED),
-  wid = .(ID),
-  within = .(eval),
-  between = .(group),
-  detailed = TRUE,
-  type = 3
-)
+contrasts(ANCOVA_SED_df$group) <- contr.helmert(2)
+ANCOVA_SED <- aov(SED_3rd ~ SED_2nd + group, data = ANCOVA_SED_df)
+Anova(ANCOVA_SED, type = "III")
 
-control_posthoc_SED <- pairwise.t.test(
-  whole_day_2nd_3rd_control$avg_SED, whole_day_2nd_3rd_control$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-exercise_posthoc_SED <- pairwise.t.test(
-  whole_day_2nd_3rd_exercise$avg_SED, whole_day_2nd_3rd_exercise$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
+SED_adjusted_means <- effect("group", ANCOVA_SED, se = TRUE)
+summary(SED_adjusted_means)
 
 # LPA
-ANOVA_LPA <- ezANOVA(
-  data = whole_day_2nd_3rd,
-  dv = .(avg_LPA),
-  wid = .(ID),
-  within = .(eval),
-  between = .(group),
-  detailed = TRUE,
-  type = 3
-)
+contrasts(ANCOVA_LPA_df$group) <- contr.helmert(2)
+ANCOVA_LPA <- aov(LPA_3rd ~ LPA_2nd + group, data = ANCOVA_LPA_df)
+Anova(ANCOVA_LPA, type = "III")
 
-control_posthoc_LPA <- pairwise.t.test(
-  whole_day_2nd_3rd_control$avg_LPA, whole_day_2nd_3rd_control$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-exercise_posthoc_LPA <- pairwise.t.test(
-  whole_day_2nd_3rd_exercise$avg_LPA, whole_day_2nd_3rd_exercise$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
+LPA_ajusted_means <- effect("group", ANCOVA_LPA, se = TRUE)
+summary(LPA_ajusted_means)
 
 # MVPA
-ANOVA_MVPA <- ezANOVA(
-  data = whole_day_2nd_3rd,
-  dv = .(log10_avg_MVPA),
-  wid = .(ID),
-  within = .(eval),
-  between = .(group),
-  detailed = TRUE,
-  type = 3
-)
+contrasts(ANCOVA_MVPA_df$group) <- contr.helmert(2)
+ANCOVA_MVPA <- aov(MVPA_3rd ~ MVPA_2nd + group, data = ANCOVA_MVPA_df)
+Anova(ANCOVA_MVPA, type = "III")
 
-control_posthoc_MVPA <- pairwise.t.test(
-  whole_day_2nd_3rd_control$log10_avg_MVPA, whole_day_2nd_3rd_control$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-exercise_posthoc_MVPA <- pairwise.t.test(
-  whole_day_2nd_3rd_exercise$log10_avg_MVPA, whole_day_2nd_3rd_exercise$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
+MVPA_ajusted_means <- effect("group", ANCOVA_MVPA, se = TRUE)
+summary(MVPA_ajusted_means)
 
 # Steps
-ANOVA_steps <- ezANOVA(
-  data = whole_day_2nd_3rd,
-  dv = .(log10_avg_steps),
-  wid = .(ID),
-  within = .(eval),
-  between = .(group),
-  detailed = TRUE,
-  type = 3
-)
+contrasts(ANCOVA_steps_df$group) <- contr.helmert(2)
+ANCOVA_steps <- aov(steps_3rd ~ steps_2nd + group, data = ANCOVA_steps_df)
+Anova(ANCOVA_steps, type = "III")
 
-control_posthoc_steps <- pairwise.t.test(
-  whole_day_2nd_3rd_control$log10_avg_steps, whole_day_2nd_3rd_control$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
-
-exercise_posthoc_steps <- pairwise.t.test(
-  whole_day_2nd_3rd_exercise$log10_avg_steps, whole_day_2nd_3rd_exercise$eval,
-  paired = TRUE, p.adjust.method = "bonferroni"
-)
+steps_ajusted_means <- effect("group", ANCOVA_steps, se = TRUE)
+summary(steps_ajusted_means)
