@@ -9,8 +9,7 @@ source("code/per_protocol/01_tidy_data.R")
 
 whole_day_50_attend <- whole_day_50_attend %>% 
   mutate(
-    log10_avg_MVPA  = log10(avg_MVPA),
-    log10_avg_steps = log10(avg_steps)
+    log10_avg_MVPA  = log10(avg_MVPA)
   )
 
 # ** 2nd eval, control group ----------------------------------------------
