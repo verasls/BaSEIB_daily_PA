@@ -88,3 +88,29 @@ Anova(ANCOVA_hip_circ, type = "III")
 
 hip_circ_adjusted_means <- effect("group", ANCOVA_hip_circ, se = TRUE)
 summary(hip_circ_adjusted_means)
+
+# Calculate treatment effects ---------------------------------------------
+
+ant_treatment_effect <- plyr::join_all(
+  list(ANCOVA_body_mass_df, ANCOVA_BMI_df, 
+       ANCOVA_waist_circ_df, ANCOVA_hip_circ_df),
+  by = c("ID", "group")
+) %>% 
+  as_tibble() %>% 
+  mutate(
+    body_mass_TE  = body_mass_3rd - body_mass_2nd,
+    BMI_TE        = BMI_3rd - BMI_2nd,
+    waist_circ_TE = waist_circ_3rd - waist_circ_2nd,
+    hip_circ_TE   = hip_circ_3rd - hip_circ_2nd
+  ) %>% 
+  group_by(group) %>% 
+  summarise(
+    mean_TE_body_mass  = mean(body_mass_TE),
+    sd_TE_body_mass    = sd(body_mass_TE),
+    mean_TE_BMI        = mean(BMI_TE),
+    sd_TE_BMI          = sd(BMI_TE),
+    mean_TE_waist_circ = mean(waist_circ_TE, na.rm = TRUE),
+    sd_TE_waist_circ   = sd(waist_circ_TE, na.rm = TRUE),
+    mean_TE_hip_circ   = mean(hip_circ_TE, na.rm = TRUE),
+    sd_TE_hip_circ     = sd(hip_circ_TE, na.rm = TRUE)
+  )

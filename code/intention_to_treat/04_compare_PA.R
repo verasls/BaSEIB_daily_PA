@@ -101,3 +101,48 @@ Anova(ANCOVA_steps, type = "III")
 
 steps_ajusted_means <- effect("group", ANCOVA_steps, se = TRUE)
 summary(steps_ajusted_means)
+
+# Calculate treatment effects ---------------------------------------------
+
+# Build data frames with non-log transformed MVPA and steps
+
+MVPA_2nd_3rd <- whole_day_2nd_3rd %>% 
+  dplyr::select(ID, eval, group, avg_MVPA) %>% 
+  spread(key = eval, value = avg_MVPA) %>% 
+  dplyr::select(
+    ID, group,
+    MVPA_2nd = '2nd', MVPA_3rd = '3rd'
+  )
+
+steps_2nd_3rd <- whole_day_2nd_3rd %>% 
+  dplyr::select(ID, eval, group, avg_steps) %>% 
+  spread(key = eval, value = avg_steps) %>% 
+  dplyr::select(
+    ID, group,
+    steps_2nd = '2nd', steps_3rd = '3rd'
+  )
+
+# Calculate treatment effects
+
+PA_treatment_effect <- plyr::join_all(
+  list(ANCOVA_SED_df, ANCOVA_LPA_df, MVPA_2nd_3rd, steps_2nd_3rd),
+  by = c("ID", "group")
+) %>% 
+  as_tibble() %>% 
+  mutate(
+    SED_TE   = SED_3rd - SED_2nd,
+    LPA_TE   = LPA_3rd - LPA_2nd,
+    MVPA_TE  = MVPA_3rd - MVPA_2nd,
+    steps_TE = steps_3rd - steps_2nd
+  ) %>% 
+  group_by(group) %>% 
+  summarise(
+    mean_TE_SED     = mean(SED_TE),
+    sd_TE_SED       = sd(SED_TE),
+    mean_TE_LPA     = mean(LPA_TE),
+    sd_TE_LPA       = sd(LPA_TE),
+    median_TE_MVPA  = median(MVPA_TE),
+    iqr_TE_MVPA     = IQR(MVPA_TE),
+    median_TE_steps = median(steps_TE),
+    iqr_TE_steps    = IQR(steps_TE)
+  )
