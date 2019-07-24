@@ -51,6 +51,7 @@ plot_1st_2nd <- ggplot(data = plot_data, aes(x = intensity, y = time, fill = eva
     labels = c("1 month before BS", "1 month after BS"),
     values = c("#CCCCCC", "#FFFFFF")
     ) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 750)) +
   labs(
     x = element_blank(),
     y = "Minutes/day"
