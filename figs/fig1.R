@@ -37,13 +37,13 @@ plot_data$intensity <- as_factor(plot_data$intensity)
 
 plot_1st_2nd <- ggplot(data = plot_data, aes(x = intensity, y = time, fill = eval)) +
   geom_bar(
-    position = position_dodge(0.9),
+    position = position_dodge(1),
     colour = "black",
     stat = "identity"
     ) +
   geom_errorbar(
     mapping = aes(ymin = time, ymax = time + error),
-    position = position_dodge(0.9),
+    position = position_dodge(1),
     width = 0.25
   ) +
   scale_fill_manual(
@@ -56,6 +56,7 @@ plot_1st_2nd <- ggplot(data = plot_data, aes(x = intensity, y = time, fill = eva
     limits = c(0, 750),
     breaks = seq(0, 700, 100)
     ) +
+  theme(axis.ticks = element_blank()) +
   labs(
     x = element_blank(),
     y = "Minutes/day"
