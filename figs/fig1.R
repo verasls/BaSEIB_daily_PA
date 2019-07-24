@@ -51,7 +51,11 @@ plot_1st_2nd <- ggplot(data = plot_data, aes(x = intensity, y = time, fill = eva
     labels = c("1 month before BS", "1 month after BS"),
     values = c("#CCCCCC", "#FFFFFF")
     ) +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, 750)) +
+  scale_y_continuous(
+    expand = c(0, 0), 
+    limits = c(0, 750),
+    breaks = seq(0, 700, 100)
+    ) +
   labs(
     x = element_blank(),
     y = "Minutes/day"
@@ -59,11 +63,11 @@ plot_1st_2nd <- ggplot(data = plot_data, aes(x = intensity, y = time, fill = eva
   annotate("segment", x = 1.6, xend = 2.4, y = 370, yend = 370) +
   annotate("segment", x = 1.6, xend = 1.6, y = 370, yend = 350) +
   annotate("segment", x = 2.4, xend = 2.4, y = 370, yend = 350) +
-  annotate("text", x = 2, y = 380, label = "*") +
+  annotate("text", x = 2, y = 380, label = "*", size = 8) +
   annotate("segment", x = 2.6, xend = 3.4, y = 60, yend = 60) +
   annotate("segment", x = 2.6, xend = 2.6, y = 60, yend = 40) +
   annotate("segment", x = 3.4, xend = 3.4, y = 60, yend = 40) +
-  annotate("text", x = 3, y = 70, label = "*")
+  annotate("text", x = 3, y = 70, label = "*", size = 8)
 
 # Uncomment lines below to save plot
 # ggsave(
