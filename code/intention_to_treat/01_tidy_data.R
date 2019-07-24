@@ -86,7 +86,7 @@ all_eval <- intersect(intersect(eval_1, eval_2), eval_3)
 
 whole_day <- whole_day %>% 
   filter(ID %in% all_eval) %>% 
-  dplyr::select(-c(avg_MPA, avg_VPA, n_valid_days, n_days))
+  dplyr::select(-c(avg_MPA, avg_VPA))
 
 # Read and tidy anthropometric data ---------------------------------------
 
