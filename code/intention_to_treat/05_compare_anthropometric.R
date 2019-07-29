@@ -60,6 +60,8 @@ t.test(hip_circ ~ eval, data = ant_1st_2nd, paired = TRUE)
 
 # Compare control and exercise at 2nd eval --------------------------------
 
+t.test(age ~ group, data = ant_2nd)
+t.test(height ~ group, data = ant_2nd)
 t.test(body_mass ~ group, data = ant_2nd)
 t.test(BMI ~ group, data = ant_2nd)
 t.test(waist_circ ~ group, data = ant_2nd)

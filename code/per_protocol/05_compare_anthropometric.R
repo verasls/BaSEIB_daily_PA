@@ -50,6 +50,8 @@ ANCOVA_hip_circ_df <- ant_2nd_3rd_50_attend %>%
 
 # Compare control and exercise at 2nd eval --------------------------------
 
+t.test(age ~ group, data = ant_2nd_50_attend)
+t.test(height ~ group, data = ant_2nd_50_attend)
 t.test(body_mass ~ group, data = ant_2nd_50_attend)
 t.test(BMI ~ group, data = ant_2nd_50_attend)
 t.test(waist_circ ~ group, data = ant_2nd_50_attend)
